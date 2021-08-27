@@ -1,1 +1,1 @@
-export { accessToken, accessTokenRegExp } from "./src/access_token.ts";
+export { accessToken } from "./src/access_token.ts";

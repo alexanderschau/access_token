@@ -19,11 +19,11 @@ export const accessToken = {
     return firstPart + checksum;
   },
   validate: (token: string, secret?: string): boolean => {
-    if (token.length != 40) return false;
+    const regExpCheck = token.match(accessToken.regExp);
+    if (!regExpCheck || regExpCheck[0] !== token) return false;
     return token.slice(-6) ==
       accessToken.genChecksum(token.substr(0, 34) + (secret || ""));
   },
+  regExp:
+    /([abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ]{3})_([0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ]{30})([0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ]{6})/g,
 };
-
-export const accessTokenRegExp =
-  /^([abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ]{3})_([0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ]{30})([0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ]{6})$/;
